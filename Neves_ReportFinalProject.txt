@@ -1,0 +1,87 @@
+Jessica Neves
+CSC 201
+5/13/16
+Final Project
+
+Introduction -
+For the final project in this class I chose to complete the Homework 6 assignment given to the University of Washington CSE 160 students. The purpose of this assignment was to show how a statistical simulation can prove that a certain set of data is fraudulent or not.
+
+Variables:
+In extract_election_vote_counts:
+- reader: Used to store csv.DictReader(csvfile). Within this function in a for loop, each row of reader is iterated. Within each row, each column is iterated through.
+- data: String type; indexes a column number within a row. data is then altered to remove punctuation. A try except appends the cleaned string to a list called vote_counts. If a ValueError is raised due to an empty cell, the cell is passed.
+
+In ones_and_tens_digit_histogram:
+- occurring_digits: initially empty list
+- num_occurrances: initially empty list
+- histogram_data: initially empty list
+- ones_and_tens_places: Integer type, finds the length of the list created from the vote counts in the previous function and multiplies it by 2 because for each number we are looking at 2 places (ones and tens)
+- ones_place: Integer type, stores the value of the digit in the ones place
+- number: Integer type, stores the value of the number we are breaking down
+- tens_place: Integer type; stores the value of the digit in the tens place
+- occur_count: Integer type; stores the value of the count of a particular number from the list occurring_digits. Is appended to the list num_occurrances
+- histogram_point: Integer type; iterates through each element in num_occurrances and divides each value by ones_and_tens_place, is appended to histogram_data
+
+In plot_iranian_least_digits_histogram:
+- ideal_histogram: List type; a list of 10 items each integers of the value 0.1, representing an ideal distribution.
+
+In random_sample_histogram:
+- sample: List type; initially empty
+- sample_histogram: List type; takes the sample list created in this function and passes it to ones_and_tens_digit_histogram to make a random sample histogram
+
+In plot_distribution_by_sample_size:
+- ten_numbers: List type; passes 10 as a parameter to random_sample_histogram
+- fifty_numbers: List type; passes 50 as a parameter to random_sample_histogram
+- one_hundred_numbers: List type; passes 100 as a parameter to random_sample_histogram
+- one_thousand_numbers: List type; passes 1000 as a parameter to random_sample_histogram
+- ten_thousand_numbers: List type; passes 10000 as a parameter to random_sample_histogram
+
+In mean_squared_error:
+- MSE: Integer type; initially 0; incremented by difference in a for loop; divided by the length of the given list to get a mean
+- difference: Integer type; calculates the difference between two numbers and squares the difference
+
+In calculate_mse_with_uniform:
+-uniform_data_set: List type; initially empty
+
+In compare_mse_to_samples:
+- MSE_larger_than: Integer type; initially 0
+- MSE_less_than: Integer type; initially 0
+- histogram: List type; stores call to random_sample_histogram
+- sample_mse: Integer type; stores returned value from calculate_mse_with_uniform() using the random sample histogram created in this function
+- p_value: Float type; takes MSE_larger_than and divides it by 10000
+
+In compare_iranian_mse_to_samples:
+- values: Tuple type; used to store the returned tuple from compare_mse_to_samples
+
+In compare_us_mse_to_samples:
+- values: Tuple type; used to store the returned tuple from compare_mse_to_samples
+
+In main():
+- filename: String type; stores names of csv files
+- column_names: List type; stores names of candidates
+- numbers: List type; stores call to extract_election_vote_counts()
+- histogram: List type; stores a call to ones_and_tens_digit_histogram()
+- iranian_mse: Float type; stores call to calculate_mse_with_uniform()
+- number_of_iranian_samples: Integer; stores len(numbers)
+- us_2008_candidates: List type; stores names of candidates
+- filename: String type; reassigned to store new csv file name
+- numbers: List type; reassigned to store call to extract_election_vote_counts() passing filename and us_2008_candidates
+- us_mse: Float type; stores call to calculate_mse_with_uniform()
+- number_of_us_samples: Integer; stores len(numbers
+
+
+This program was a series of functions that were each called in turn in a main function. Part 1 of the assignment asked to read and clean up election data. This required using csv.DictReader to read and open csv files. Once the file was open I created two nested for loops. The first looped through each row of the file, the second iterated through each of the column_names. Within the second for loop, I stored the data found within each cell and used the replace method to remove punctuation so that a clean string of numbers could be appended to a list as an integer. Later in the program I had to modify this function with a try/except in case a ValueError was raised from an empty cell. At the end of the function, the files is closed and the list generated is returned.
+
+In Part 2 we were instructed to make a histogram from a given list of numbers. The histogram looked at how many times a particular number appeared in either the ones place or tens place, and then divided that count by the total number of places among the numbers in the list. A for loop dictated a large part of this function. It would iterate through each number in the given list and check against different if statements. If the number had more than 2 digits we first took the modulus 10 of that number to get the ones place. We would then subtract this value from the number to round it off and then divide by 10 so we could repeat this process for the tens place. Both ones and tens place digits were appended to the list occurring_digits. If the number was between 99 and 10 inclusive, we took modulus 10 first for the ones place, subracted it from the original number, and then divided by 10 to get the tens place. If the number was a single digit, we applied the modulus 10 once and then assigned tens_place equal to 0. For a value of 0, I chose to assign the ones and tens place values both as 0. Once the list of occurring_digits was complete I used a for loop to iterate through the numbers 0-9 to check with count() how many times those values occurred in occurring_digits. That occurr_count was then appended to another list called num_occurrances. A second for loop followed that iterated through each of those count values and divided them by the ones_and_tens_places variable. These values were each appended to a list called histogram_data.
+
+In Part 3 we had to plot the iranian histogram against a histogram for an ideal distribution. This function used methods from matplotlib. plt.plot would make the line for the given list. One was called idea which took the ideal_histogram list, the other Iran took the histogram list that was passed as a parameter to the function. plt.ylabel and plt.xlabel would label my axes. plt.legend displayed the legend. plt.savefig would save the plot as a png. I commented out plt.show. Each time plt.show runs the plot pops up in a separate window. I had to make sure to include plt.clf which would clear the plot since it wasn't being shown in a new window.
+
+In Part 4 I had to plot a variety of sample histograms to show how the histogram changes with larger sample sizes. Due to repeating code, we were instructed to create another function. I called mine random_sample_histogram. This would create a sample histogram made from random integers. In the function plot_distribution_by_sample_size, I called random_sample_histogram and passed in the sample size integer. I needed to plot 5 lines, one for a sample size of 10, 50, 100, 1000, and 10000. I saved each call as a different variable then passed these variables to plt.plot until my graph was complete. In the resulting image, it showed how a larger sample size of random numbers will produce a line closer to an ideal distribution.
+
+In Part 5 we had to write a function that calculated a Mean Squared Error between two lines. I used a for loop that iterated through each of the indexes in two lists. As the loop iterated, it had to take the difference of the numbers in each position and square them. Each time I added this value to a variable called MSE. When the for loop completed I reassigned MSE to equal MSE/len(numbers1) which would give me a mean.
+
+In Part 6 we had to create 2 functions. calculate_mse_with_uniform took in a histogram and a uniform histogram and called mean_squared_error to return the mse of a comparison to an ideal distribution. I used a for loop in this function to create the uniform histogram by appending 0.1 an equal number of times to the length of the histogram that was being compared. In the same part of this assignment we were instructed to make another function called compare_mse_to_samples. This would take an mse value and the number of data points in the data set and would return a tuple with the number of mse values larger than the given one, the mse values smaller than the given one, and the p value. In this function I used a for loop that iterated 10000 times. In each iteration it create a random sample histogram equal in size to whatever histogram we were comparing it to. It would take the sample histogram and calculate a sample mse. Then one of two if statements would be met. If the sample was >= to the given mse value, MSE_larger_than was incremented by one. If the sample was < the given mse value, MSE_less_than was incremented by one. At the end, p_value was calculated by MSE_larger_than/10000. 
+
+The second function from Part 6 was originally to be written for compare_iranian_mse_to_samples, but due to similarity between it and compare_us_mse_to_samples, we were instructed to make a third function that could be used for both. Therefore, in each of those I set a variable values equal to compare_mse_to_samples because it would return a tuple. I could then display a print statement that used indexing in the tuple to get the values I needed to display in the completed printout. Finally, I stored each of my calls to the functions neatly in a main().
+
+This project was not truly as difficult as it seemed. It was cool to try plotting data through python. The statistics language had me a bit confused at first. I had to find a few resources to explain the p-value and how it is actually calculated and what it means. Ultimately this project was successful in demonstrating how fraudulent data can be detected. I was able to show that the Iranian 2009 election was fraudulent, while the 2008 US election was not fraudulent. 
