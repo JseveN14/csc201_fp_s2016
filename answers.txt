@@ -1,0 +1,23 @@
+Name: Jessica Neves
+
+CSC201
+
+Final Project(Homework 6)
+
+
+
+For each problem that requires a written answer, write (or copy-and-paste)
+your answers in this file. When you are done, you should have replaced all
+the ellipses (the three dots) with your answers.
+
+
+
+Answer to Problem 7:
+
+Based on the results of the Mean Standard Error comparison, our p value is roughly calculated around 0.03 each time the program is run. Comparing this p value to our level of significance (0.05), we find that p < 0.05. This tells us to reject the null hypothesis that the election data is not fraudulent, meaning the results of the 2009 Iranian election were fraudulent.
+
+
+
+Answer to Problem 8:
+
+Based on the results of the Mean Standard Error comparison, our p value is roughly calculated around 0.4 each time the program is run. Comparing this p value to our level of significance (0.05), we find that p > 0.05. This tells us to accept the null hypothesis that the election data is not fraudulent.
